@@ -25,9 +25,11 @@ STATIC_DIR=os.path.join(BASE_DIR,'static')
 SECRET_KEY = '#vw(03o=(9kbvg!&2d5i!2$_58x@_-3l4wujpow6(ym37jxnza'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -86,7 +88,7 @@ DATABASES = {
 }
 
 # Database override for deployment
-DATABASES["default"] =  dj_database_url.parse("postgres://postgres:123456@localhost:5432/ecom")
+DATABASES["default"] =  dj_database_url.parse("postgresql://meatbroker_db_user:1Ymxm0icTyLn17NAk8S3oREjF58ucxCk@dpg-cqbabqg8fa8c73b4q6pg-a.oregon-postgres.render.com/meatbroker_db")
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
