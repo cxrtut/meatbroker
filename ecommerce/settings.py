@@ -29,9 +29,9 @@ SECRET_KEY = '#vw(03o=(9kbvg!&2d5i!2$_58x@_-3l4wujpow6(ym37jxnza'
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
-
-
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1").split(" ")
+if 'meatbrokerapp.onrender.com' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('meatbrokerapp.onrender.com')
 
 # Application definition
 
