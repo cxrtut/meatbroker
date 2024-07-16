@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
+import dj_database_url
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -85,6 +85,8 @@ DATABASES = {
     }
 }
 
+# Database override for deployment
+DATABASES["default"] =  dj_database_url.parse("postgresql://meatbroker_db_user:1Ymxm0icTyLn17NAk8S3oREjF58ucxCk@dpg-cqbabqg8fa8c73b4q6pg-a.oregon-postgres.render.com/meatbroker_db")
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
