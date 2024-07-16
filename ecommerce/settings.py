@@ -160,12 +160,5 @@ EMAIL_RECEIVING_USER = ['to@gmail.com'] # email on which you will receive messag
 # Set the default auto field to BigAutoField
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Additional settings
-# Ensure the static files are collected properly
-if DEBUG:
-    INSTALLED_APPS.append('django.contrib.staticfiles')
-    MIDDLEWARE.append('django.middleware.common.BrokenLinkEmailsMiddleware')
-
-
 
 
