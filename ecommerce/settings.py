@@ -86,7 +86,7 @@ DATABASES = {
 }
 
 # Database override for deployment
-DATABASES["default"] =  dj_database_url.parse("postgresql://meatbroker_db_user:1Ymxm0icTyLn17NAk8S3oREjF58ucxCk@dpg-cqbabqg8fa8c73b4q6pg-a.oregon-postgres.render.com/meatbroker_db")
+DATABASES["default"] =  dj_database_url.parse("postgres://postgres:123456@localhost:5432/ecom")
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
