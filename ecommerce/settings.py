@@ -14,10 +14,9 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
-# STATIC_DIR=os.path.join(BASE_DIR,'static')
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
+STATIC_DIR=os.path.join(BASE_DIR,'static')
 
 
 # Quick-start development settings - unsuitable for production
@@ -94,7 +93,10 @@ DATABASES = {
 }
 
 # Database override for deployment
-DATABASES["default"] =  dj_database_url.parse("postgresql://meatbroker_db_user:1Ymxm0icTyLn17NAk8S3oREjF58ucxCk@dpg-cqbabqg8fa8c73b4q6pg-a.oregon-postgres.render.com/meatbroker_db")
+database_url = os.environ.get("DATABASE_URL")
+if database_url:
+    DATABASES["default"] = dj_database_url.parse(database_url)
+#DATABASES["default"] =  dj_database_url.parse("postgresql://meatbroker_db_user:1Ymxm0icTyLn17NAk8S3oREjF58ucxCk@dpg-cqbabqg8fa8c73b4q6pg-a.oregon-postgres.render.com/meatbroker_db")
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -130,13 +132,20 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+# This setting informs Django of the URI path from which your static files will be served to users
+# Here, they well be accessible at your-domain.onrender.com/static/... or yourcustomdomain.com/static/...
 STATIC_URL = '/static/'
-STATIC_ROOT = "staticfiles"
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 STATICFILES_DIRS=[STATIC_DIR,]
+
+# This production code might break development mode, so we check whether we're in DEBUG mode
+if not DEBUG:
+    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'static')
 
@@ -151,10 +160,10 @@ EMAIL_BACKEND = 'django.core.mail.'
 
 #for contact us give your gmail id and password setting up new mail
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.office365.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'meatbrokers2024@gmail.com' # this email will be used to send emails
+EMAIL_HOST_USER = 'meatbrokers2024@gmail.com' # this email will be used `   to send emails
 EMAIL_HOST_PASSWORD = 'nbwuizufleuxyfzv' # host email password required
 
 # now sign in with your host gmail account in your browser
