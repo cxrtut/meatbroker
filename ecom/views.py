@@ -41,7 +41,7 @@ def adminclick_view(request):
 def send_welcome_email(sender, user, **kwargs):
     subject = 'Welcome to our platform!'
     content = f'Hi your username is: {user.username},\n\nWelcome to meatbrokers butchery!\nWelcome to our platform! We\'re excited to have you on board.'
-    send_mail(subject, content, 'meatbrokers@outlook.com', [user.email])
+    send_mail(subject, content, 'meatbrokers2024@gmail.com', [user.email])
 
 
 
@@ -576,7 +576,7 @@ def send_order_confirmation_email(order):
     template = 'ecom/order_confirmation_email.html'
     context = {'order': order, 'invoice_url': invoice_url}
     content = render_to_string(template, context)
-    send_mail(subject, content, 'meatbrokers@outlook.com', [order.email])
+    send_mail(subject, content, 'meatbrokers2024@gmail.com', [order.email])
 
 
 
